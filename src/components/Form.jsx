@@ -1,4 +1,4 @@
-const Form = ({item, setItem, handleSubmit, isEditing}) => {
+const Form = ({item, setItem, handleSubmit, isEditing, clearAll}) => {
 
   return (
     <form>
@@ -21,6 +21,7 @@ const Form = ({item, setItem, handleSubmit, isEditing}) => {
       <button type="submit" onClick={handleSubmit}>
         {isEditing ? "Edit" : "Add"}
       </button>
+      <button onClick={clearAll}>Clear</button>
     </form>
   );
 };

@@ -2,12 +2,18 @@ import {useState, useEffect} from "react";
 import Form from "./components/Form";
 import SingleItem from "./components/SingleItem";
 import itemService from "./services/items"
+import Alert from "./components/Alert";
 
 const App = () => {
   const [list, setList] = useState([]);
   const [editId, setEditId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [item, setItem] = useState({title: "", note: ""});
+	const [alert, setAlert] = useState({
+		show: true,
+		msg: "",
+		type: ""
+	})
 
 	useEffect(() => {
 		itemService.getAll()
@@ -35,12 +41,13 @@ const deleteItem = (id) => {
 	console.log(`Item (${itemToDelete.title}) deleted successfully`);
   const listAfterDelete = list.filter((item) => item.id !== id);
   setList(listAfterDelete);
+	showAlert(true, "success", "Item deleted")
 };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!item.title) {
-      console.log("Empty title");
+			showAlert(true, "danger", "Title cannot be empty")
 			
     } else if (item.title && isEditing) {
 			const newItem = {id: editId, title: item.title, note: item.note};
@@ -53,6 +60,7 @@ const deleteItem = (id) => {
       setIsEditing(false);
       setEditId(null);
       setItem({title: "", note: "", id: ""});
+			showAlert(true, "sucess", "Item updated")
 
 		} else {
 			itemService.createItem(item)
@@ -62,17 +70,31 @@ const deleteItem = (id) => {
 				})
 			
 			setItem({title: "", note: ""})
+			showAlert(true, "success", "Item created")
   };
+	}
+
+	const clearAll = (e) => {
+		e.preventDefault()
+		list.map(listItem => itemService.deleteItem(listItem.id))
+		setList([])
+		showAlert(true, "success", "All items deleted");
+	}
+
+	const showAlert = (show=false, type="", msg="") => {
+		setAlert({show, type, msg})
 	}
 
   return (
     <section>
       <h2>Grocery List</h2>
+      {alert.show && <Alert {...alert} removeAlert={showAlert} list={list} />}
       <Form
         item={item}
         setItem={setItem}
         handleSubmit={handleSubmit}
         isEditing={isEditing}
+				clearAll={clearAll}
       />
 
       {list.map((item, index) => (
