@@ -62,7 +62,7 @@ const deleteItem = (id) => {
       setIsEditing(false);
       setEditId(null);
       setItem({title: "", note: "", id: ""});
-			showAlert(true, "sucess", "Item updated")
+			showAlert(true, "success", "Item updated")
 
 		} else {
 			itemService.createItem(item)
