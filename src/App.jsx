@@ -9,8 +9,9 @@ const App = () => {
   const [editId, setEditId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [item, setItem] = useState({title: "", note: ""});
+	const [listIsEmpty, setListIsEmpty] = useState(true);
 	const [alert, setAlert] = useState({
-		show: true,
+		show: false,
 		msg: "",
 		type: ""
 	})
@@ -25,6 +26,7 @@ const App = () => {
 
 	useEffect(() => {
 		console.log("List updated" , list)
+		setListIsEmpty(list.length === 0);
 	}, [list])
 
   const editItem = (id) => {
@@ -86,26 +88,36 @@ const deleteItem = (id) => {
 	}
 
   return (
-    <section>
-      <h2>Grocery List</h2>
-      {alert.show && <Alert {...alert} removeAlert={showAlert} list={list} />}
-      <Form
-        item={item}
-        setItem={setItem}
-        handleSubmit={handleSubmit}
-        isEditing={isEditing}
-				clearAll={clearAll}
-      />
-
-      {list.map((item, index) => (
-        <SingleItem
-          key={index}
+    <div className="center-container">
+      <section className="container">
+        {alert.show && <Alert {...alert} removeAlert={showAlert} list={list} />}
+        <h2 className="heading">Grocery List</h2>
+        <Form
           item={item}
-          editItem={editItem}
-          deleteItem={deleteItem}
+          setItem={setItem}
+          handleSubmit={handleSubmit}
+          isEditing={isEditing}
+          clearAll={clearAll}
         />
-      ))}
-    </section>
+        {!listIsEmpty && (
+          <div className="single-item-container">
+            {list.map((item, index) => (
+              <SingleItem
+                key={index}
+                item={item}
+                editItem={editItem}
+                deleteItem={deleteItem}
+              />
+            ))}
+          </div>
+        )}
+        {!listIsEmpty && (
+          <button onClick={clearAll} className="clear-button">
+            Clear All
+          </button>
+        )}
+      </section>
+    </div>
   );
 };
 

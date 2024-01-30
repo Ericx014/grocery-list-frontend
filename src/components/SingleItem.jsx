@@ -6,18 +6,22 @@ const SingleItem = ({item, deleteItem, editItem}) => {
   const [showInfo, setShowInfo] = useState(false);
 
   return (
-    <article>
-      <h4>{item.title}</h4>
-      {showInfo && <p>{item.note}</p>}
-      <button onClick={() => setShowInfo(!showInfo)}>
-        {showInfo ? <AiOutlineMinus /> : <AiOutlinePlus />}
-      </button>
-      <button onClick={() => editItem(item.id)}>
-        <FaEdit />
-      </button>
-      <button onClick={() => deleteItem(item.id)}>
-        <FaTrash />
-      </button>
+    <article className="list-item-container">
+      <div className="item-container">
+        <h4>{item.title}</h4>
+        {showInfo && <p>{item.note}</p>}
+      </div>
+      <div className="button-container">
+        <button className="show-button" onClick={() => setShowInfo(!showInfo)}>
+          {showInfo ? <AiOutlineMinus /> : <AiOutlinePlus />}
+        </button>
+        <button className="edit-button" onClick={() => editItem(item.id)}>
+          <FaEdit />
+        </button>
+        <button className="delete-button" onClick={() => deleteItem(item.id)}>
+          <FaTrash />
+        </button>
+      </div>
     </article>
   );
 };
