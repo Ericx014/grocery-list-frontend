@@ -9,7 +9,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-	background-color: hsl(207, 45%, 92%);
+	background-color: hsl(206, 30%, 95%);
 }
 
 .heading {
@@ -39,7 +39,7 @@
 
 section.container {
 	background-color: white;
-	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
 	padding: 1rem;
 	padding-bottom: 1rem;
 	width: 500px;
@@ -60,18 +60,35 @@ article.list-item-container {
 .show-button {
 	background-color: transparent;
 	border: transparent;
+	color: hsl(0, 0%, 23%);
+	transition: color 0.3s;
+}
+
+.show-button:hover {
+	color: hsl(0, 3%, 70%);
 }
 
 .edit-button {
 	background-color: transparent;
 	border: transparent;
 	color: hsl(125, 71%, 66%);
+	width: 10px;
+	transition: color 0.3s;
+}
+
+.edit-button:hover {
+	color: hsl(125, 38%, 50%);
 }
 
 .delete-button {
 	background-color: transparent;
 	border: transparent;
 	color: hsl(360, 71%, 66%);
+	transition: color 0.3s;
+}
+
+.delete-button:hover {
+	color: hsl(0, 37%, 51%);
 }
 
 div.item-container {
