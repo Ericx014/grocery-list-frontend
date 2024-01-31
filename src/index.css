@@ -14,10 +14,18 @@
 
 .heading {
 	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+
+@media (max-width: 450px) {
+	.heading {
+		font-size: 20px;
+	}
 }
 
 .alert {
-	width: 400px;
+	width: 450px;
 	margin: 0 auto;
   height: 1.25rem;
   display: grid;
@@ -28,6 +36,13 @@
   letter-spacing: 0.1rem;
 	margin-bottom: 0.5rem;
 }
+
+@media (max-width: 450px) {
+	.alert {
+		width: 250px;
+	}
+}
+
 .alert-danger {
   color: #721c24;
   background: #f8d7da;
@@ -110,6 +125,7 @@ div.item-container {
 	font-size: 0.9rem;
 	transition: font-size 0.3s;
 	margin: 0 auto;
+	padding-top: 10px;
 }
 
 .clear-button:hover {
