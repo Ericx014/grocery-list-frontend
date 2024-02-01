@@ -1,9 +1,9 @@
 import {useState, useEffect} from "react";
-import Form from "./components/Form";
-import SingleItem from "./components/SingleItem";
+import loginService from "./services/login";
 import itemService from "./services/items";
 import Alert from "./components/Alert";
-import loginService from "./services/login"
+import LoginForm from "./components/LoginForm";
+import MainContent from "./components/MainContent";
 
 const App = () => {
   const [list, setList] = useState([]);
@@ -18,25 +18,30 @@ const App = () => {
   });
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-	const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-		try {
-			const user = await loginService.login({
-				username, password
-			})
-			itemService.setToken(user.token);
-			setUser(user)
-			setUsername("")
-			setPassword("")
-			console.log("Login successful", username, password, user.token)
-		
-		} catch (exception) {
-			console.error("Error", exception)
-		}
+    try {
+      const user = await loginService.login({
+        username,
+        password,
+      });
+      itemService.setToken(user.token);
+      setUser(user);
+      setUsername("");
+      setPassword("");
+      console.log("Log in successful: ", user.name);
+    } catch (exception) {
+      console.error("Error", exception);
+    }
   };
+
+	const handleLogout = () => {
+		setUser(null)
+		console.log("Log out successfully", user.name)
+	}
 
   useEffect(() => {
     itemService.getAll().then((fetchedItems) => {
@@ -107,60 +112,32 @@ const App = () => {
 
   return (
     <div>
-      <form>
-        <div>
-          Username
-          <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({target}) => setUsername(target.value)}
-          />
-        </div>
-        <div>
-          Password
-          <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({target}) => setPassword(target.value)}
-          />
-        </div>
-        <button type="submit" onClick={handleLogin}>
-          Login
-        </button>
-      </form>
       <div className="center-container">
-        <section className="container">
-          {alert.show && (
-            <Alert {...alert} removeAlert={showAlert} list={list} />
-          )}
-          <h2 className="heading">Grocery List</h2>
-          <Form
+        {alert.show && <Alert {...alert} removeAlert={showAlert} list={list} />}
+        {user === null ? (
+          <LoginForm
+            user={user}
+            setUser={setUser}
+            username={username}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+            handleLogin={handleLogin}
+            handleLogout={handleLogout}
+          />
+        ) : (
+          <MainContent
             item={item}
             setItem={setItem}
             handleSubmit={handleSubmit}
             isEditing={isEditing}
             clearAll={clearAll}
+            listIsEmpty={listIsEmpty}
+            list={list}
+            editItem={editItem}
+            deleteItem={deleteItem}
           />
-          {!listIsEmpty && (
-            <div className="single-item-container">
-              {list.map((item, index) => (
-                <SingleItem
-                  key={index}
-                  item={item}
-                  editItem={editItem}
-                  deleteItem={deleteItem}
-                />
-              ))}
-            </div>
-          )}
-          {!listIsEmpty && (
-            <button onClick={clearAll} className="clear-button">
-              Clear All
-            </button>
-          )}
-        </section>
+        )}
       </div>
     </div>
   );

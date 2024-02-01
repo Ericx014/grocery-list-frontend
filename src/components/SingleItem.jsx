@@ -8,8 +8,8 @@ const SingleItem = ({item, deleteItem, editItem}) => {
   return (
     <article className="list-item-container">
       <div className="item-container">
-        <h4>{item.title}</h4>
-        {showInfo && <p>{item.note}</p>}
+        <h4 className="item-title">{item.title}</h4>
+        {showInfo && <p className="item-note">{item.note}</p>}
       </div>
       <div className="button-container">
         <button className="show-button" onClick={() => setShowInfo(!showInfo)}>
