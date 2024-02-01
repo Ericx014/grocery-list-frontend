@@ -1,24 +1,37 @@
 import axios from "axios"
 const baseUrl = "/api/items"
 
-const getAll = () => {
- 	const request = axios.get(baseUrl)
-	return request.then((response) => response.data);
+let token = null;
+
+const setToken = newToken => {
+	token = `Bearer ${newToken}`
 }
 
-const createItem = (newItem) => {
-	const request = axios.post(baseUrl, newItem)
-	return request.then((response) => response.data)
+const getAll = async () => {
+  const response = await axios.get(baseUrl);
+  return response.data;
+};
+
+const createItem = async (newItem) => {
+  const config = {
+    headers: {Authorization: token},
+  };
+
+  console.log(token);
+  console.log(config);
+
+  const response = await axios.post(baseUrl, newItem, config);
+  return response.data;
+};
+
+const deleteItem = async (id) => {
+	const response = await axios.delete(`${baseUrl}/${id}`)
+	return response.data;
 }
 
-const deleteItem = (id) => {
-	const request = axios.delete(`${baseUrl}/${id}`)
-	return request.then((response) => response.data)
-}
-
-const updateItem = (id, updatedItem) => {
-	const request = axios.put(`${baseUrl}/${id}`, updatedItem);
-	return request.then((response) => response.data)
+const updateItem = async (id, updatedItem) => {
+	const response = await axios.put(`${baseUrl}/${id}`, updatedItem);
+	return response.data;
 }
  
-export default { getAll, createItem, deleteItem, updateItem }
+export default {getAll, createItem, deleteItem, updateItem, setToken};
