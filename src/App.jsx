@@ -10,7 +10,6 @@ const App = () => {
   const [editId, setEditId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [item, setItem] = useState({title: "", note: ""});
-  const [listIsEmpty, setListIsEmpty] = useState(true);
   const [alert, setAlert] = useState({
     show: false,
     msg: "",
@@ -32,7 +31,7 @@ const App = () => {
       setUser(user);
       setUsername("");
       setPassword("");
-      console.log("Log in successful: ", user.name);
+      console.log("Log in successful: ", user);
     } catch (exception) {
       console.error("Error", exception);
     }
@@ -52,7 +51,6 @@ const App = () => {
 
   useEffect(() => {
     console.log("List updated", list);
-    setListIsEmpty(list.length === 0);
   }, [list]);
 
   const editItem = (id) => {
@@ -91,7 +89,7 @@ const App = () => {
     } else {
       itemService.createItem(item).then((newItem) => {
         setList([...list, newItem]);
-        console.log("Item added successfully: ", item.title);
+        console.log("Item added successfully: ", item);
       });
 
       setItem({title: "", note: ""});
@@ -135,7 +133,6 @@ const App = () => {
               handleSubmit={handleSubmit}
               isEditing={isEditing}
               clearAll={clearAll}
-              listIsEmpty={listIsEmpty}
               list={list}
               editItem={editItem}
               deleteItem={deleteItem}

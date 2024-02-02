@@ -1,20 +1,24 @@
+import {useState} from "react";
+import userService from "../services/users";
 import Form from "./Form";
 import ItemList from "./ItemList";
 import Alert from "./Alert";
 
 const MainContent = ({
+  user,
   item,
   setItem,
   handleSubmit,
   isEditing,
   clearAll,
-  listIsEmpty,
   list,
   editItem,
   deleteItem,
-	alert,
-	showAlert
+  alert,
+  showAlert,
 }) => {
+  const listOfUserItems = list.filter((item) => item.userId === user.id);
+
   return (
     <div className="center-container">
       <section className="container">
@@ -26,12 +30,18 @@ const MainContent = ({
           handleSubmit={handleSubmit}
           isEditing={isEditing}
         />
-        {!listIsEmpty && (
-          <ItemList list={list} editItem={editItem} deleteItem={deleteItem} />
+        {!(listOfUserItems.length === 0) && (
+          <div>
+            <ItemList
+              list={listOfUserItems}
+              editItem={editItem}
+              deleteItem={deleteItem}
+            />
+            <button onClick={clearAll} className="clear-button">
+              Clear All
+            </button>
+          </div>
         )}
-        <button onClick={clearAll} className="clear-button">
-          Clear All
-        </button>
       </section>
     </div>
   );
