@@ -1,12 +1,14 @@
 import {useState, useEffect} from "react";
 import loginService from "./services/login";
 import itemService from "./services/items";
+import userService from "./services/users";
 import LoginForm from "./components/LoginForm";
 import NavigationBar from "./components/Header";
 import MainContent from "./components/MainContent";
 
 const App = () => {
   const [list, setList] = useState([]);
+	const [userList, setUserList] = useState([])
   const [editId, setEditId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [item, setItem] = useState({title: "", note: ""});
@@ -44,7 +46,14 @@ const App = () => {
 
   useEffect(() => {
     itemService.getAll().then((fetchedItems) => {
-      console.log("Data fetched successfully");
+      console.log("Items fetched successfully", fetchedItems);
+      setList(fetchedItems);
+    });
+  }, []);
+
+	useEffect(() => {
+    userService.getAll().then((fetchedItems) => {
+      console.log("Users fetched successfully", fetchedItems);
       setList(fetchedItems);
     });
   }, []);
@@ -88,9 +97,10 @@ const App = () => {
       showAlert(true, "success", "Item updated");
     } else {
       itemService.createItem(item).then((newItem) => {
-        setList([...list, newItem]);
+				const newList = [...list, newItem];
+				setList(newList);
         console.log("Item added successfully: ", item);
-      });
+			});
 
       setItem({title: "", note: ""});
       showAlert(true, "success", "Item created");

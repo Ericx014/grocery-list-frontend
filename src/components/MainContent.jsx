@@ -17,7 +17,7 @@ const MainContent = ({
   alert,
   showAlert,
 }) => {
-  const listOfUserItems = list.filter((item) => item.userId === user.id);
+	// const listOfUserItems = list.filter((item) => item.user.username === user.username);
 
   return (
     <div className="center-container">
@@ -30,10 +30,11 @@ const MainContent = ({
           handleSubmit={handleSubmit}
           isEditing={isEditing}
         />
-        {!(listOfUserItems.length === 0) && (
+        {!(list.length === 0) && (
           <div>
             <ItemList
-              list={listOfUserItems}
+              user={user}
+              list={list}
               editItem={editItem}
               deleteItem={deleteItem}
             />
