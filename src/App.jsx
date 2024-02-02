@@ -1,7 +1,6 @@
 import {useState, useEffect} from "react";
 import loginService from "./services/login";
 import itemService from "./services/items";
-import Alert from "./components/Alert";
 import LoginForm from "./components/LoginForm";
 import NavigationBar from "./components/Header";
 import MainContent from "./components/MainContent";
