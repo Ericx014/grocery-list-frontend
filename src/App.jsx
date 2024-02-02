@@ -3,6 +3,7 @@ import loginService from "./services/login";
 import itemService from "./services/items";
 import Alert from "./components/Alert";
 import LoginForm from "./components/LoginForm";
+import NavigationBar from "./components/Header";
 import MainContent from "./components/MainContent";
 
 const App = () => {
@@ -38,10 +39,10 @@ const App = () => {
     }
   };
 
-	const handleLogout = () => {
-		setUser(null)
-		console.log("Log out successfully", user.name)
-	}
+  const handleLogout = () => {
+    setUser(null);
+    console.log("Log out successfully", user.name);
+  };
 
   useEffect(() => {
     itemService.getAll().then((fetchedItems) => {
@@ -112,8 +113,7 @@ const App = () => {
 
   return (
     <div>
-      <div className="center-container">
-        {alert.show && <Alert {...alert} removeAlert={showAlert} list={list} />}
+      <div>
         {user === null ? (
           <LoginForm
             user={user}
@@ -123,20 +123,26 @@ const App = () => {
             password={password}
             setPassword={setPassword}
             handleLogin={handleLogin}
-            handleLogout={handleLogout}
           />
         ) : (
-          <MainContent
-            item={item}
-            setItem={setItem}
-            handleSubmit={handleSubmit}
-            isEditing={isEditing}
-            clearAll={clearAll}
-            listIsEmpty={listIsEmpty}
-            list={list}
-            editItem={editItem}
-            deleteItem={deleteItem}
-          />
+          <div>
+            <NavigationBar user={user} handleLogout={handleLogout} />
+            <MainContent
+              alert={alert}
+              showAlert={showAlert}
+              user={user}
+              item={item}
+              setItem={setItem}
+              handleSubmit={handleSubmit}
+              isEditing={isEditing}
+              clearAll={clearAll}
+              listIsEmpty={listIsEmpty}
+              list={list}
+              editItem={editItem}
+              deleteItem={deleteItem}
+              handleLogout={handleLogout}
+            />
+          </div>
         )}
       </div>
     </div>

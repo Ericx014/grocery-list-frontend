@@ -13,9 +13,6 @@ const ItemList = ({list, clearAll, editItem, deleteItem}) => {
           />
         ))}
       </div>
-      <button onClick={clearAll} className="clear-button">
-        Clear All
-      </button>
     </section>
   );
 };

@@ -1,15 +1,12 @@
 const LoginForm = ({
-  user,
-  setUser,
   username,
   setUsername,
   password,
   setPassword,
   handleLogin,
-	handleLogout
 }) => {
-  if (user === null) {
-    return (
+  return (
+    <div className="center-container">
       <form>
         <div>
           Username
@@ -33,17 +30,8 @@ const LoginForm = ({
           Login
         </button>
       </form>
-    );
-  } else {
-    return (
-      <section>
-        <h4>Welcome {user.name}</h4>;
-        <button onClick={handleLogout}>
-					Log out
-				</button>
-      </section>
-    );
-  }
+    </div>
+  );
 };
 
 export default LoginForm;
