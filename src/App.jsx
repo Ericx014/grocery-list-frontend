@@ -63,6 +63,10 @@ const App = () => {
     console.log("List updated", list);
   }, [list]);
 
+  useEffect(() => {
+    console.log("Edit ID changed");
+  }, [editId]);
+
   const editItem = (id) => {
     const itemToEdit = list.find((item) => item.id === id);
     setIsEditing(true);
@@ -80,21 +84,29 @@ const App = () => {
     showAlert(true, "success", "Item deleted");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!item.title) {
       showAlert(true, "danger", "Title cannot be empty");
     } else if (item.title && isEditing) {
-      const newItem = {id: editId, title: item.title, note: item.note};
-      itemService.updateItem(editId, newItem);
-
+      const currentUser = userList.find(
+        (userInList) => userInList.username === user.username
+      );
+      const newItem = {
+        id: editId,
+        title: item.title,
+        note: item.note,
+        user: currentUser.id,
+      };
+      console.log(currentUser);
+      await itemService.updateItem(editId, newItem);
       const updatedList = list.map((listItem) => {
         return listItem.id === editId ? newItem : listItem;
       });
       setList(updatedList);
       setIsEditing(false);
       setEditId(null);
-      setItem({title: "", note: "", id: ""});
+      setItem({title: "", note: ""});
       showAlert(true, "success", "Item updated");
     } else {
       itemService.createItem(item).then((newItem) => {
