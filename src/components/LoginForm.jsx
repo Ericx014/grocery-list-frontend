@@ -35,21 +35,19 @@ const LoginForm = ({
     setIsSigningUp(false);
   };
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    userService
+    await userService
       .addUser({
         username: newUsername,
         name: newName,
         password: newPassword,
       })
-      .then(() => {
-        setNewName("");
-        setNewPassword("");
-        setNewUsername("");
-        setIsSigningUp(false);
-        showAlert(true, "success", "Account created");
-      });
+      setNewName("");
+      setNewPassword("");
+      setNewUsername("");
+      setIsSigningUp(false);
+      showAlert(true, "success", "Account created");
   };
 
   if (!isSigningUp) {
