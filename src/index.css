@@ -26,7 +26,7 @@
 }
 
 .alert {
-  width: 470px;
+  width: 250px;
   margin: 0 auto;
   padding: 5px;
   height: 1.25rem;
@@ -39,12 +39,6 @@
   margin-bottom: 0.5rem;
 }
 
-@media (max-width: 500px) {
-	.alert {
-		width: 250px
-	}
-}
-
 .alert-danger {
   color: #721c24;
   background: #f8d7da;
@@ -52,6 +46,18 @@
 .alert-success {
   color: #155724;
   background: #d4edda;
+}
+
+.alert-signup {
+  color: #155724;
+  background: #d4edda;
+  width: 300px;
+}
+
+@media (max-width: 450px) {
+  .alert-signup {
+    width: 250px;
+  }
 }
 
 section.container {
@@ -299,11 +305,11 @@ article.list-item-container {
 
 @media (max-width: 450px) {
   .login-input,
-	.sign-up-input {
+  .sign-up-input {
     width: 250px;
   }
   .login-button,
-	.sign-up-button {
+  .sign-up-button {
     width: 270px;
   }
 }

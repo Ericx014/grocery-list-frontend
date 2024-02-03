@@ -47,7 +47,7 @@ const LoginForm = ({
       setNewPassword("");
       setNewUsername("");
       setIsSigningUp(false);
-      showAlert(true, "success", "Account created");
+      showAlert(true, "signup", "Account created");
   };
 
   if (!isSigningUp) {
