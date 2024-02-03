@@ -75,10 +75,12 @@ const App = () => {
   };
 
   const deleteItem = (id) => {
+    const currentUser = userList.find(
+      (userInList) => userInList.username === user.username
+    );		
     const itemToDelete = list.find((item) => item.id === id);
     itemService.deleteItem(id);
-    console.log(itemToDelete);
-    console.log(`Item (${itemToDelete.title}) deleted successfully`);
+    console.log(`Item deleted successfully`, itemToDelete);
     const listAfterDelete = list.filter((item) => item.id !== id);
     setList(listAfterDelete);
     showAlert(true, "success", "Item deleted");

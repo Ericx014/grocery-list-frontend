@@ -26,7 +26,7 @@
 }
 
 .alert {
-  width: 300px;
+  width: 470px;
   margin: 0 auto;
   padding: 5px;
   height: 1.25rem;
@@ -37,6 +37,12 @@
   border-radius: 0.25rem;
   letter-spacing: 0.1rem;
   margin-bottom: 0.5rem;
+}
+
+@media (max-width: 500px) {
+	.alert {
+		width: 250px
+	}
 }
 
 .alert-danger {
@@ -292,10 +298,12 @@ article.list-item-container {
 }
 
 @media (max-width: 450px) {
-  .login-input {
+  .login-input,
+	.sign-up-input {
     width: 250px;
   }
-  .login-button {
+  .login-button,
+	.sign-up-button {
     width: 270px;
   }
 }
