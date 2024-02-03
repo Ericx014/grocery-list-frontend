@@ -1,12 +1,11 @@
 import SingleItem from "./SingleItem";
 
-const ItemList = ({user, list, editItem, deleteItem}) => {
+const ItemList = ({currentUser, userItems, list, editItem, deleteItem}) => {
   return (
     <section>
       <div className="single-item-container">
-				{/* IF LIST IS EMPTY IT BREAKS*/}
-        {list.map((item, index) => {
-          if (item.user.username === user.username) {
+        {userItems &&
+          userItems.map((item, index) => {
             return (
               <SingleItem
                 key={index}
@@ -15,8 +14,7 @@ const ItemList = ({user, list, editItem, deleteItem}) => {
                 deleteItem={deleteItem}
               />
             );
-          }
-        })}
+          })}
       </div>
     </section>
   );

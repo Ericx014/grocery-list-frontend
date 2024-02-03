@@ -1,13 +1,12 @@
-import {useState} from "react";
-import userService from "../services/users";
 import Form from "./Form";
 import ItemList from "./ItemList";
 import Alert from "./Alert";
 
 const MainContent = ({
-  user,
   item,
   setItem,
+  user,
+  userList,
   handleSubmit,
   isEditing,
   clearAll,
@@ -17,7 +16,10 @@ const MainContent = ({
   alert,
   showAlert,
 }) => {
-	// const listOfUserItems = list.filter((item) => item.user.username === user.username);
+  const currentUser = userList.find(
+    (userInList) => userInList.username === user.username
+  );
+  const userItems = list.filter((listItem) => listItem.user === currentUser.id);
 
   return (
     <div className="center-container">
@@ -30,10 +32,11 @@ const MainContent = ({
           handleSubmit={handleSubmit}
           isEditing={isEditing}
         />
-        {!(list.length === 0) && (
+        {!(userItems.length === 0) && (
           <div>
             <ItemList
-              user={user}
+              currentUser={currentUser}
+              userItems={userItems}
               list={list}
               editItem={editItem}
               deleteItem={deleteItem}

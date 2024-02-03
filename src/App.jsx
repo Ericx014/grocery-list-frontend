@@ -8,7 +8,7 @@ import MainContent from "./components/MainContent";
 
 const App = () => {
   const [list, setList] = useState([]);
-	const [userList, setUserList] = useState([])
+  const [userList, setUserList] = useState([]);
   const [editId, setEditId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [item, setItem] = useState({title: "", note: ""});
@@ -35,6 +35,7 @@ const App = () => {
       setPassword("");
       console.log("Log in successful: ", user);
     } catch (exception) {
+      showAlert(true, "danger", "Wrong password or username");
       console.error("Error", exception);
     }
   };
@@ -51,10 +52,10 @@ const App = () => {
     });
   }, []);
 
-	useEffect(() => {
-    userService.getAll().then((fetchedItems) => {
-      console.log("Users fetched successfully", fetchedItems);
-      setList(fetchedItems);
+  useEffect(() => {
+    userService.getAll().then((fetchedUsers) => {
+      console.log("Users fetched successfully", fetchedUsers);
+      setUserList(fetchedUsers);
     });
   }, []);
 
@@ -97,10 +98,11 @@ const App = () => {
       showAlert(true, "success", "Item updated");
     } else {
       itemService.createItem(item).then((newItem) => {
-				const newList = [...list, newItem];
-				setList(newList);
+        const newList = [...list, newItem];
+        setList(newList);
         console.log("Item added successfully: ", item);
-			});
+        console.log("User", user);
+      });
 
       setItem({title: "", note: ""});
       showAlert(true, "success", "Item created");
@@ -109,7 +111,9 @@ const App = () => {
 
   const clearAll = (event) => {
     event.preventDefault();
-    list.map((listItem) => itemService.deleteItem(listItem.id));
+    list.map((listItem) => {
+      itemService.deleteItem(listItem.id);
+    });
     setList([]);
     showAlert(true, "success", "All items deleted");
   };
@@ -125,16 +129,22 @@ const App = () => {
           <LoginForm
             user={user}
             setUser={setUser}
+						userList={userList}
+						setUserList={setUserList}
             username={username}
             setUsername={setUsername}
             password={password}
             setPassword={setPassword}
             handleLogin={handleLogin}
+            alert={alert}
+            showAlert={showAlert}
+            list={list}
           />
         ) : (
           <div>
             <NavigationBar user={user} handleLogout={handleLogout} />
             <MainContent
+              userList={userList}
               alert={alert}
               showAlert={showAlert}
               user={user}
