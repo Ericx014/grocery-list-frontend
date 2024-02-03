@@ -28,7 +28,7 @@
 .alert {
   width: 300px;
   margin: 0 auto;
-	padding: 5px;
+  padding: 5px;
   height: 1.25rem;
   display: grid;
   align-items: center;
@@ -58,7 +58,7 @@ section.container {
   min-width: 280px;
   position: fixed;
   top: 7rem;
-	border-radius: 20px;
+  border-radius: 20px;
 }
 
 article.list-item-container {
@@ -218,24 +218,28 @@ article.list-item-container {
   font-size: 1.1rem;
 }
 
-.login-header {
+.login-header,
+.sign-up-header {
   margin-bottom: 10px;
 }
 
-.login-form {
+.login-form,
+.sign-up-form {
   background-color: white;
   padding: 20px;
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
 }
 
-.login-input-header {
+.login-input-header,
+.sign-up-input-header {
   font-size: 16px;
   margin-bottom: 2px;
   font-size: 14px;
 }
 
-.login-input {
+.login-input,
+.sign-up-input {
   width: 300px;
   padding: 5px 10px;
   margin-bottom: 10px;
@@ -244,7 +248,8 @@ article.list-item-container {
   font-size: 14px;
 }
 
-.login-button {
+.login-button,
+.sign-up-button {
   width: 320px;
   color: white;
   box-sizing: border-box;
@@ -256,20 +261,24 @@ article.list-item-container {
   transition: background-color 0.3s;
 }
 
-.login-button:hover {
+.login-button:hover,
+.sign-up-button:hover {
   background-color: white;
   box-sizing: border-box;
   color: rgb(55, 55, 250);
   font-weight: 800;
+  text-decoration: underline;
 }
 
-.sign-up-description {
+.sign-up-description,
+.log-in-description {
   text-align: center;
   margin: 10px 0 0 0;
   font-size: 14px;
 }
 
-.to-sign-up-button {
+.to-sign-up-button,
+.to-log-in-button {
   background-color: transparent;
   border: transparent;
   cursor: pointer;
@@ -283,11 +292,10 @@ article.list-item-container {
 }
 
 @media (max-width: 450px) {
-	.login-input {
-		width: 250px;
-	}
-	.login-button {
-		width: 270px;
-	}
-	
+  .login-input {
+    width: 250px;
+  }
+  .login-button {
+    width: 270px;
+  }
 }

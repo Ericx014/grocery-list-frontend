@@ -37,18 +37,19 @@ const LoginForm = ({
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    userService.addUser({
-      username: newUsername,
-      name: newName,
-      password: newPassword,
-
-    }).then(() => {
-			setNewName("");
-      setNewPassword("");
-      setNewUsername("");
-      setIsSigningUp(false);
-			showAlert(true, "success", "Account created")
-		})
+    userService
+      .addUser({
+        username: newUsername,
+        name: newName,
+        password: newPassword,
+      })
+      .then(() => {
+        setNewName("");
+        setNewPassword("");
+        setNewUsername("");
+        setIsSigningUp(false);
+        showAlert(true, "success", "Account created");
+      });
   };
 
   if (!isSigningUp) {
@@ -98,30 +99,36 @@ const LoginForm = ({
     return (
       <div className="center-container">
         <form className="sign-up-form">
-          <h2>Sign Up</h2>
-          <p className="sign-up-input-header">Username</p>
-          <input
-            type="text"
-            className="sign-up-input"
-            value={newUsername}
-            onChange={({target}) => setNewUsername(target.value)}
-          />
+          <h2 className="sign-up-header">Sign Up</h2>
+          <div>
+            <p className="sign-up-input-header">Username</p>
+            <input
+              type="text"
+              className="sign-up-input"
+              value={newUsername}
+              onChange={({target}) => setNewUsername(target.value)}
+            />
+          </div>
 
-          <p className="sign-up-input-header">Name</p>
-          <input
-            type="text"
-            className="sign-up-input"
-            value={newName}
-            onChange={({target}) => setNewName(target.value)}
-          />
+          <div>
+            <p className="sign-up-input-header">Name</p>
+            <input
+              type="text"
+              className="sign-up-input"
+              value={newName}
+              onChange={({target}) => setNewName(target.value)}
+            />
+          </div>
 
-          <p className="sign-up-input-header">Password</p>
-          <input
-            type="password"
-            className="sign-up-input"
-            value={newPassword}
-            onChange={({target}) => setNewPassword(target.value)}
-          />
+          <div>
+            <p className="sign-up-input-header">Password</p>
+            <input
+              type="password"
+              className="sign-up-input"
+              value={newPassword}
+              onChange={({target}) => setNewPassword(target.value)}
+            />
+          </div>
 
           <button
             type="submit"
@@ -131,7 +138,7 @@ const LoginForm = ({
             Sign up
           </button>
 
-          <p className="sign-up-description">
+          <p className="log-in-description">
             Have an account?
             <button className="to-log-in-button" onClick={handleToLogInButton}>
               Log in
