@@ -1,16 +1,17 @@
+import itemService from "../services/items";
 import Form from "./Form";
 import ItemList from "./ItemList";
 import Alert from "./Alert";
 
 const MainContent = ({
-  item,
-  setItem,
   user,
   userList,
+  item,
+  setItem,
   handleSubmit,
   isEditing,
-  clearAll,
   list,
+  setList,
   editItem,
   deleteItem,
   alert,
@@ -20,6 +21,21 @@ const MainContent = ({
     (userInList) => userInList.username === user.username
   );
   const userItems = list.filter((listItem) => listItem.user === currentUser.id);
+
+  const clearAll = (event) => {
+    event.preventDefault();
+    const currentUser = userList.find(
+      (userInList) => userInList.username === user.username
+    );
+		const listAfterClear = list.filter((listItem) => listItem.user !== currentUser.id)
+    list.map((listItem) => {
+      if (listItem.user === currentUser.id) {
+        itemService.deleteItem(listItem.id)
+      }
+    });
+		setList(listAfterClear)
+		showAlert(true, "success", "Item deleted")
+  };
 
   return (
     <div className="center-container">

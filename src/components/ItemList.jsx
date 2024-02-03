@@ -1,6 +1,6 @@
 import SingleItem from "./SingleItem";
 
-const ItemList = ({currentUser, userItems, list, editItem, deleteItem}) => {
+const ItemList = ({userItems, editItem, deleteItem}) => {
   return (
     <section>
       <div className="single-item-container">

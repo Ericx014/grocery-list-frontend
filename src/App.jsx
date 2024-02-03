@@ -109,15 +109,6 @@ const App = () => {
     }
   };
 
-  const clearAll = (event) => {
-    event.preventDefault();
-    list.map((listItem) => {
-      itemService.deleteItem(listItem.id);
-    });
-    setList([]);
-    showAlert(true, "success", "All items deleted");
-  };
-
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({show, type, msg});
   };
@@ -129,8 +120,8 @@ const App = () => {
           <LoginForm
             user={user}
             setUser={setUser}
-						userList={userList}
-						setUserList={setUserList}
+            userList={userList}
+            setUserList={setUserList}
             username={username}
             setUsername={setUsername}
             password={password}
@@ -152,8 +143,8 @@ const App = () => {
               setItem={setItem}
               handleSubmit={handleSubmit}
               isEditing={isEditing}
-              clearAll={clearAll}
               list={list}
+              setList={setList}
               editItem={editItem}
               deleteItem={deleteItem}
               handleLogout={handleLogout}
